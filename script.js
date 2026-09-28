@@ -1,4 +1,4 @@
-const csvUrl = "https://raw.githubusercontent.com/Devtal-gaupalika/landusequery/refs/heads/main/devtal.csv";
+const csvUrl = "https://raw.githubusercontent.com/prasaunig/landusequery/refs/heads/main/script.js";
 let csvData = [];
 
 // Fetch CSV data on page load

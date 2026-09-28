@@ -268,7 +268,7 @@
   <!-- Scripts -->
   <script>
     // --- Login System ---
-    const validUsername = "prasauni";
+    const validUsername = "devtal";
     const validPassword = "12345";
 
     function login() {
@@ -277,45 +277,36 @@
       const errorMsg = document.getElementById('login-error');
 
       if (username === validUsername && password === validPassword) {
-        document.getElementById('login-wrapper').style.display = 'none';
+        document.getElementById('login-card').style.display = 'none';
         document.getElementById('main-content').style.display = 'block';
-        errorMsg.style.display = 'none';
       } else {
         errorMsg.style.display = 'block';
       }
     }
 
-    function logout() {
-      document.getElementById('login-wrapper').style.display = 'flex';
-      document.getElementById('main-content').style.display = 'none';
-      document.getElementById('username').value = '';
-      document.getElementById('password').value = '';
-      document.getElementById('results').innerHTML = '';
-    }
-
-    // --- Ward population based on selection ---
+    // --- Placeholder for ward and parcel logic ---
     function populateWards() {
-      const vdc = document.getElementById('vdc').value;
       const wardDropdown = document.getElementById('ward');
-      wardDropdown.innerHTML = '<option value="">-- वडा छान्नुहोस् --</option>';
-
-      if (vdc) {
-        for (let i = 1; i <= 7; i++) {
-          wardDropdown.innerHTML += `<option value="${i}">वडा नं ${i}</option>`;
-        }
-      }
+      wardDropdown.innerHTML = `
+        <option value="">-- वार्ड छान्नुस --</option>
+        <option value="1">१</option>
+        <option value="2">२</option>
+        <option value="3">३</option>
+        <option value="4">४</option>
+        <option value="5">५</option>
+      `;
     }
 
-    // --- Query Data Function with Rich Simulated Output ---
+    // --- Query Data Function (Mock Example) ---
     function queryData() {
       const vdc = document.getElementById('vdc').value;
       const ward = document.getElementById('ward').value;
-      const parcel = document.getElementById('parcel').value.trim();
+      const parcel = document.getElementById('parcel').value;
       const results = document.getElementById('results');
       const progress = document.querySelector('.progress');
 
       if (!vdc || !ward || !parcel) {
-        showCustomAlert('कृपया सम्पूर्ण विवरण (क्षेत्र, वडा र कित्ता नं) सही ढङ्गले भरी खोजी गर्नुहोस्!');
+        alert('कृपया सम्पूर्ण विवरण भर्नुहोस्!');
         return;
       }
 
@@ -331,8 +322,9 @@
         `;
       }, 1500);
     }
+  </script>
 
-<!-- Optional JS File -->
+  <!-- Optional JS File -->
    <script src="script.js"></script>
 </body>
 </html>

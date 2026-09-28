@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>प्रसौनी गाउँपालिका - भू-उपयोग वर्गीकरण तथा कित्तागत विवरण प्रणाली</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts for Nepali typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: "Noto Sans Devanagari", sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header Bar */
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #1b365d 0%, #0d233a 100%);
+      color: #fff;
+      padding: 15px 30px;
+      border-bottom: 4px solid #ffc107;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .header-bar img {
+      height: 65px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .header-title {
+      text-align: center;
+      font-weight: 700;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .header-title .municipality-name {
+      font-size: 20px;
+      color: #ffc107;
+      letter-spacing: 0.5px;
+    }
+
+    /* Marquee Styling */
+    .marquee-container {
+      background-color: #ffc107;
+      color: #000;
+      font-weight: 600;
+      padding: 8px 0;
+      font-size: 14px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    /* Card Styling */
+    .card-custom {
+      border-radius: 16px;
+      border: none;
+      background: #fff;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      transition: transform 0.2s ease;
+    }
+
+    /* Login Section */
+    #login-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 15px;
+    }
+
+    #login-card {
+      width: 100%;
+      max-width: 420px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      padding: 35px;
+      background-color: #fff;
+      border-top: 5px solid #1b365d;
+    }
+
+    #main-content {
+      display: none;
+      flex: 1;
+      padding-bottom: 50px;
+    }
+
+    .form-control, .form-select {
+      border-radius: 10px;
+      padding: 12px 15px;
+      border: 1px solid #ced4da;
+      font-size: 14px;
+    }
+
+    .form-control:focus, .form-select:focus {
+      box-shadow: 0 0 0 3px rgba(27, 54, 93, 0.15);
+      border-color: #1b365d;
+    }
+
+    .btn-primary-custom {
+      background-color: #1b365d;
+      border: none;
+      border-radius: 10px;
+      padding: 12px;
+      font-weight: 600;
+      color: #fff;
+      transition: background 0.2s;
+    }
+
+    .btn-primary-custom:hover {
+      background-color: #12243f;
+    }
+
+    /* Custom Notification Modal/Box */
+    .custom-alert {
+      border-radius: 10px;
+      padding: 15px;
+      font-size: 14px;
+    }
+
+    footer {
+      background-color: #1b365d;
+      color: #adb5bd;
+      text-align: center;
+      padding: 15px;
+      font-size: 13px;
+      margin-top: auto;
+    }
+
+    /* Result styling */
+    .result-table th {
+      background-color: #f8f9fa;
+      color: #1b365d;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div class="header-bar">
+    <img src="https://giwmscdnone.gov.np/static/assets/image/Emblem_of_Nepal.png">
+    
+    <div class="header-title">
+      <div class="municipality-name">प्रसौनी गाउँपालिका</div>
+      <div>गाउँ कार्यपालिकाको कार्यालय</div>
+      <div>प्रसौनी, बारा, मधेश प्रदेश, नेपाल</div>
+    </div>
+
+    <img src="https://giwmscdntwo.gov.np/static/grapejs/img/Nepal-flag.gif" alt="Nepal Flag">
+  </div>
+
+  <!-- Marquee Notice -->
+  <div class="marquee-container">
+    <marquee behavior="scroll" direction="left" scrollamount="6">
+      📢 सूचना: यो प्रणाली प्रसौनी गाउँपालिकाको आधिकारिक भू-उपयोग वर्गीकरण, जग्गाको क्षेत्रगत विवरण तथा कित्तागत जानकारी हेर्न प्रयोग गरिन्छ । सहयोगका लागि वडा कार्यालयमा सम्पर्क गर्नुहोस् ।
+    </marquee>
+  </div>
+
+  <!-- Login Card Section -->
+  <div id="login-wrapper">
+    <div id="login-card">
+      <div class="text-center mb-4">
+        <i class="fa-solid fa-user-shield fa-3x text-primary mb-2" style="color: #1b365d !important;"></i>
+        <h4 class="fw-bold">प्रणालीमा लगइन गर्नुहोस्</h4>
+        <p class="text-muted small">अधिकृत प्रयोगकर्ता मात्र प्रवेश गर्नुहोस्</p>
+      </div>
+
+      <div class="mb-3">
+        <label for="username" class="form-label fw-semibold">प्रयोगकर्ता नाम:</label>
+        <div class="input-group">
+          <span class="input-group-text bg-light"><i class="fa-solid fa-user"></i></span>
+          <input type="text" id="username" class="form-control" placeholder="उदा: prasauni">
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="form-label fw-semibold">पासवर्ड:</label>
+        <div class="input-group">
+          <span class="input-group-text bg-light"><i class="fa-solid fa-lock"></i></span>
+          <input type="password" id="password" class="form-control" placeholder="••••••••">
+        </div>
+      </div>
+
+      <button class="btn btn-primary-custom w-100 shadow-sm" onclick="login()">
+        <i class="fa-solid fa-right-to-bracket me-2"></i> लगइन गर्नुहोस्
+      </button>
+
+      <div id="login-error" class="alert alert-danger custom-alert mt-3 text-center" style="display:none;">
+        <i class="fa-solid fa-triangle-exclamation me-1"></i> गलत प्रयोगकर्ता नाम वा पासवर्ड ! (Default: prasauni / 12345)
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Dashboard -->
+  <div id="main-content" class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h3 class="fw-bold text-primary mb-0" style="color: #1b365d !important;">
+            <i class="fa-solid fa-map-location-dot me-2"></i> कित्तागत भू-उपयोग विवरण खोज
+          </h3>
+          <button class="btn btn-outline-danger btn-sm" onclick="logout()">
+            <i class="fa-solid fa-right-from-bracket me-1"></i> बाहिरिनुहोस् (Logout)
+          </button>
+        </div>
+
+        <div class="card card-custom p-4">
+          <!-- VDC / Municipality Dropdown -->
+          <div class="mb-3">
+            <label for="vdc" class="form-label fw-semibold">स्थान / साविक गाविस:</label>
+            <select id="vdc" class="form-select" onchange="populateWards()">
+              <option value="">-- साविक गाविस / क्षेत्र छान्नुहोस् --</option>
+            </select>
+          </div>
+
+          <!-- Ward Dropdown -->
+          <div class="mb-3">
+            <label for="ward" class="form-label fw-semibold">वडा नं:</label>
+            <select id="ward" class="form-select">
+              <option value="">-- पहिले क्षेत्र छान्नुहोस् --</option>
+            </select>
+          </div>
+
+          <!-- Parcel Input -->
+          <div class="mb-4">
+            <label for="parcel" class="form-label fw-semibold">कित्ता नं:</label>
+            <input type="text" id="parcel" class="form-control" placeholder="जस्तै: १०५, २०४, ३१२">
+          </div>
+
+          <!-- Search Button -->
+          <button id="searchBtn" class="btn btn-primary-custom w-100 shadow-sm" onclick="queryData()">
+            <i class="fa-solid fa-magnifying-glass me-2"></i> विवरण खोज्नुहोस्
+          </button>
+
+          <!-- Progress Bar -->
+          <div class="progress mt-4" style="height: 6px; display:none;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width:100%"></div>
+          </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" class="mt-4"></div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      &copy; 2026 प्रसौनी गाउँपालिका, गाउँ कार्यपालिकाको कार्यालय, बारा, मधेश प्रदेश, नेपाल । सर्वाधिकार सुरक्षित ।
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // --- Login System ---
+    const validUsername = "prasauni";
+    const validPassword = "12345";
+
+    function login() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errorMsg = document.getElementById('login-error');
+
+      if (username === validUsername && password === validPassword) {
+        document.getElementById('login-wrapper').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+        errorMsg.style.display = 'none';
+      } else {
+        errorMsg.style.display = 'block';
+      }
+    }
+
+    function logout() {
+      document.getElementById('login-wrapper').style.display = 'flex';
+      document.getElementById('main-content').style.display = 'none';
+      document.getElementById('username').value = '';
+      document.getElementById('password').value = '';
+      document.getElementById('results').innerHTML = '';
+    }
+
+    // --- Ward population based on selection ---
+    function populateWards() {
+      const vdc = document.getElementById('vdc').value;
+      const wardDropdown = document.getElementById('ward');
+      wardDropdown.innerHTML = '<option value="">-- वडा छान्नुहोस् --</option>';
+
+      if (vdc) {
+        for (let i = 1; i <= 7; i++) {
+          wardDropdown.innerHTML += `<option value="${i}">वडा नं ${i}</option>`;
+        }
+      }
+    }
+
+    // --- Query Data Function with Rich Simulated Output ---
+    function queryData() {
+      const vdc = document.getElementById('vdc').value;
+      const ward = document.getElementById('ward').value;
+      const parcel = document.getElementById('parcel').value.trim();
+      const results = document.getElementById('results');
+      const progress = document.querySelector('.progress');
+
+      if (!vdc || !ward || !parcel) {
+        showCustomAlert('कृपया सम्पूर्ण विवरण (क्षेत्र, वडा र कित्ता नं) सही ढङ्गले भरी खोजी गर्नुहोस्!');
+        return;
+      }
+
+      progress.style.display = 'block';
+      results.innerHTML = '';
+
+      setTimeout(() => {
+        progress.style.display = 'none';
+        
+        // Mock data generator for realistic land use display
+        const areaSqMtr = (Math.random() * 800 + 150).toFixed(2);
+        const landTypes = ['कृषि क्षेत्र (Agricultural)', 'आवासीय क्षेत्र (Residential)', 'व्यापारिक क्षेत्र (Commercial)', 'सार्वजनिक उपयोग (Public Use)'];
+        const randomLandType = landTypes[Math.floor(Math.random() * landTypes.length)];
+        const landowner = ['रामचन्द्र महतो कोइरी', 'सीता देवी कुर्मी', 'अदित्य कुमार यादव', 'मोतीलाल साह तेली', 'गीता शर्मा'][Math.floor(Math.random() * 5)];
+
+        results.innerHTML = `
+          <div class="card card-custom p-4 border-start border-success border-5">
+            <h5 class="text-success mb-3 fw-bold"><i class="fa-solid fa-circle-check me-2"></i> जग्गाको कित्तागत विवरण फेला पर्यो</h5>
+            <table class="table table-bordered result-table mb-3">
+              <tr>
+                <th style="width: 35%;">गाउँपालिका / क्षेत्र:</th>
+                <td>प्रसौनी गाउँपालिका (${vdc})</td>
+              </tr>
+              <tr>
+                <th>वडा नं:</th>
+                <td>वडा नं. ${ward}</td>
+              </tr>
+              <tr>
+                <th>कितत्ता नं:</th>
+                <td><strong>${parcel}</strong></td>
+              </tr>
+              <tr>
+                <th>जग्गाधनीको नाम:</th>
+                <td>${landowner}</td>
+              </tr>
+              <tr>
+                <th>क्षेत्रफल:</th>
+                <td>${areaSqMtr} वर्ग मिटर</td>
+              </tr>
+              <tr>
+                <th>भू-उपयोग वर्गीकरण:</th>
+                <td><span class="badge bg-success p-2">${randomLandType}</span></td>
+              </tr>
+              <tr>
+                <th>मोडिफिकेसन स्थिति:</th>
+                <td>अद्यावधिक गरिएको (Verified)</td>
+              </tr>
+            </table>
+            <button class="btn btn-outline-secondary btn-sm w-100" onclick="window.print()">
+              <i class="fa-solid fa-print me-1"></i> विवरण प्रिन्ट गर्नुहोस्
+            </button>
+          </div>
+        `;
+      }, 1200);
+    }
+
+   
+  </script>
+
+<!-- Optional JS File -->
+   <script src="script.js"></script>
+</body>
+</html>
